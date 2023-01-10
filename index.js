@@ -9,6 +9,9 @@ const app = express();
 
 conectarDB()
 
+// habilitar leer los valores del body
+
+app.use(express.json())
 
 // puerto de lapp
 
