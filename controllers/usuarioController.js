@@ -1,8 +1,20 @@
 const { find } = require("../models/Usuario");
 const Usuario = require("../models/Usuario");
 const bcrypt = require("bcrypt");
-
+const {validationResult} = require('express-validator')
 exports.nuevoUsuario = async (req, res) => {
+
+  //mostrar mensaje de error de expres validator
+
+  const errores = validationResult(req)
+
+
+  if(!errores.isEmpty()) {
+      return res.status(400).json({errores: errores.array()})
+  }
+
+
+
   // verificar si el usuario ya estubo registrado
 
   const { email, password } = req.body;

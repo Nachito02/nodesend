@@ -1,6 +1,5 @@
 const express = require('express');
 const conectarDB = require('./config/db')
-
 //crear servidor
 const app = express();
 
@@ -18,9 +17,15 @@ app.use(express.json())
 const port = process.env.PORT || 4000;
 
 
+
 //rutas de la app
 
+
 app.use('/api/usuarios', require('./routes/usuarios'));
+
+
+app.use('/api/auth', require('./routes/auth'));
+
 
 
 // arrancar la app
