@@ -15,6 +15,7 @@ module.exports = (req, res,next) => {
       const usuario = jwt.verify(token, process.env.SECRETA);
 
       req.usuario = usuario
+   
     } catch (error) {
       console.log(error);
     }
