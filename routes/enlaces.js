@@ -16,7 +16,10 @@ router.post('/', [
 
 ], auth, enlacesController.nuevoEnlace)
 
-router.get('/:url', enlacesController.obtenerEnlace,archivosController.eliminarArchivo)
+router.get('/:url', enlacesController.obtenerEnlace)
+
+
+router.get('/', enlacesController.todosEnlaces)
 
 
 module.exports = router

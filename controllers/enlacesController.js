@@ -12,12 +12,12 @@ exports.nuevoEnlace = async (req, res, next) => {
     return res.status(400).json({ errores: errores.array() });
   }
 
-  const { nombre_original } = req.body;
+  const { nombre_original, nombre } = req.body;
 
   //creara objeto enlace
   const enlace = new Enlaces();
   enlace.url = shortid.generate();
-  enlace.nombre = shortid.generate();
+  enlace.nombre = nombre;
   enlace.nombre_original = nombre_original;
 
   //si el usuario esta autenticado
@@ -58,14 +58,13 @@ exports.nuevoEnlace = async (req, res, next) => {
 
 exports.obtenerEnlace = async (req,res,next) => { 
 
-
   //verificar si existe el enlace
 
   const enlace = await Enlaces.findOne({url : req.params.url})
 
 
  if(!enlace) {
-  res.status(404).json({msg: 'ese mensaje no existe'})
+  res.status(404).json({msg: 'ese enlace no existe'})
 
   return next()
  }
@@ -74,24 +73,21 @@ exports.obtenerEnlace = async (req,res,next) => {
 
  res.json({archivo: enlace.nombre})
 
- //si las descargas son iguales a 1 Borrar la entrad y bborrar el archivo
-
-  const {descargas, nombre} = enlace;
-
-  if(descargas === 1) {
-    console.log('solo 1')
-
-    //eliminar el archivo
-    req.archivo = nombre
-
-    //eliminar la entrada de la bd
-    next()
-
-
-  } else {
-    enlace.descargas--;
-    await enlace.save()
-  }
+ next()
 
  // si las descargas son > a 1 restar 1
+}
+
+
+// obtiene un estado de todos los enlaces
+
+exports.todosEnlaces = async(req,res) => {
+
+      try {
+          const enlaces = await Enlaces.find({}).select('url -_id');
+
+          res.json({enlaces})
+      } catch (error) {
+          console.log(error)
+      }
 }

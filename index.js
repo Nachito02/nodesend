@@ -16,14 +16,15 @@ const opcionesCors = {
     origin: process.env.FRONTEND_URL
 }
 
-console.log(process.env.FRONTEND_URL)
 app.use(cors(opcionesCors))
 
 // habilitar leer los valores del body
 
 app.use(express.json())
 
+//habilitar carpeta publica
 
+app.use(express.static('uploads'))
 
 // puerto de lapp
 
