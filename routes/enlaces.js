@@ -16,10 +16,13 @@ router.post('/', [
 
 ], auth, enlacesController.nuevoEnlace)
 
-router.get('/:url', enlacesController.obtenerEnlace)
+router.get('/:url', 
+enlacesController.tienePassword
+,enlacesController.obtenerEnlace)
 
 
 router.get('/', enlacesController.todosEnlaces)
 
+router.post('/:url', enlacesController.verificarPassword, enlacesController.obtenerEnlace)
 
 module.exports = router
